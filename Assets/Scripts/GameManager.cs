@@ -18,29 +18,30 @@ public class GameManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
     }
-
-
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         blocksLeft = GameObject.FindGameObjectsWithTag("Blocks").Length;
+
+        Debug.Log("Bloques encontrados al iniciar: " + blocksLeft);
     }
 
     public void BlockDestroyed()
     {
+        // Disminuye el conteo de bloques restantes y recarga la escena si no quedan bloques
+        // BLOCKSLEFT se inicializa en Start contando todos los bloques con la etiqueta "Blocks"
+        // ReloadScene se llama para reiniciar el juego cuando todos los bloques han sido destruidos
         blocksLeft--;
         if (blocksLeft <= 0)
         {
-            LoadNextlevel();
+            
         }
-    }
-    private void LoadNextlevel()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
     public void ReloadScene()
     {         
-      SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        // Asegura que el tiempo de juego esté normal al recargar la escena
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         
     }
 }
