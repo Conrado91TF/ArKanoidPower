@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     {
         if (Instance != null && Instance != this)
         {
+            // Si ya existe una instancia del GameManager, destruye esta nueva instancia
             Destroy(gameObject);
             return;
 
@@ -38,7 +39,7 @@ public class GameManager : MonoBehaviour
             
         }
     }
-    public void ReloadScene()
+    public void ReloadScene() // Método para recargar la escena actual
     {         
         // Asegura que el tiempo de juego esté normal al recargar la escena
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
