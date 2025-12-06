@@ -57,6 +57,7 @@ public class Ball : MonoBehaviour
         }
         CorregirAngulo();
     }
+    
     void CorregirAngulo()
     {
         float anguloMinimo = 15f;

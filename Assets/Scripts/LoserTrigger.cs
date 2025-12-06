@@ -7,10 +7,13 @@ public class LoserTrigger : MonoBehaviour
         // Detecta colisiones con otros objetos 
         if (collision.gameObject.CompareTag("Ball")) 
         {
-            // Verifica si el objeto que colisionó tiene la etiqueta "Ball"
-            GameManager.Instance.ReloadScene(); 
-            // Llama al método ReloadScene del GameManager para reiniciar la escena
             
+            
+            GameManager.Instance.PerderVida();
+            GameManager.Instance.SumarPuntos(100);
+            GameManager.Instance.ReloadScene();
+
+
         }
     }
 }
