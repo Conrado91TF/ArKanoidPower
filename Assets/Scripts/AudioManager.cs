@@ -5,16 +5,16 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance { get; private set; }
 
-    [Header("Fuentes de audio")]
+    [SerializeField]
     public AudioSource musicSource; // Fuente para música de fondo (recomendado: Loop activado por script)
     public AudioSource sfxSource;   // Fuente para efectos (PlayOneShot)
 
-    [Header("Clips")]
+    [SerializeField]
     public AudioClip introMusic;
     public AudioClip menuMusic;
     public AudioClip effectClick;
 
-    [Header("UI")]
+    [SerializeField]
     public Slider sliderMusic;
     public Slider sliderSfx;
 

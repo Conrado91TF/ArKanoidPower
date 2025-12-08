@@ -1352,7 +1352,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicSource: {fileID: 1071742400}
   sfxSource: {fileID: 0}
-  introMusic: {fileID: 0}
+  introMusic: {fileID: 8300000, guid: bef0cef2ded0f0645ad90c6e5bdd4965, type: 3}
   menuMusic: {fileID: 8300000, guid: bef0cef2ded0f0645ad90c6e5bdd4965, type: 3}
   effectClick: {fileID: 0}
   sliderMusic: {fileID: 391329277}

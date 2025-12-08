@@ -12,8 +12,9 @@ public class LoserTrigger : MonoBehaviour
             GameManager.Instance.PerderVida();
             GameManager.Instance.SumarPuntos(100);
             GameManager.Instance.ReloadScene();
-
-
+           
+            Destroy(collision.gameObject);
         }
+        
     }
 }

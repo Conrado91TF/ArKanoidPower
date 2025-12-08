@@ -16,13 +16,21 @@ public class Ball : MonoBehaviour
 
     [SerializeField]
     private float velocityMultiplaier; // Multiplicador de velocidad al destruir un ladrillo.
+    public float playerOffsetY = 0.4f;
 
+    
 
+    
+   
     void Start()
     {
         ballRb = GetComponent<Rigidbody2D>();
         // Inicialmente, la bola no se está moviendo
         // GetComponent<Rigidbody2D>() obtiene el componente Rigidbody2D adjunto al mismo GameObject que este script.
+        
+        
+
+
     }
 
 
@@ -40,7 +48,12 @@ public class Ball : MonoBehaviour
             isBallMoving = true;
 
         }
-    }
+    
+        if (Input.GetButtonDown("Jump"))
+        {
+            Tirar();
+        }
+    }   
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Blocks"))
@@ -60,6 +73,7 @@ public class Ball : MonoBehaviour
     
     void CorregirAngulo()
     {
+        
         float anguloMinimo = 15f;
         Vector2 vel = ballRb.linearVelocity;
 
@@ -75,6 +89,15 @@ public class Ball : MonoBehaviour
             ballRb.linearVelocity = vel;
         }
     }
+    void Tirar() 
+    {
+        
+        var dir = new Vector2(0f, 2f);
+        ballRb.linearVelocity = dir.normalized * initialVelocity;
+        isBallMoving = true;
+        transform.parent = null;
+    }
+    
 }
 
     

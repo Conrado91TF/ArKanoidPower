@@ -5,14 +5,15 @@ public class GamerOver : MonoBehaviour
 {
     public TMP_Text textPuntos;
 
-    public GameObject panelGameOver;
+    public GameObject panelGamerOver;
 
-    public void MostrarGameover()
+    public void MostrarGameOver()
     {
-        panelGameOver.SetActive(true);
-       
-        
-        Time.timeScale = 0f; // Pausa el juego
+       panelGamerOver.SetActive(true);
+
+       textPuntos.text = (("Puntos Finales: " )+ FindAnyObjectByType<GameManager>().puntosTexto).ToString();
+
+        Time.timeScale = 0f;
     }
 
     public void ReiniciarNivel()

@@ -36,5 +36,6 @@ public class Bloques : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    
 }
 
