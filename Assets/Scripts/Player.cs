@@ -15,6 +15,30 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float maxX = 7.5f;    // Límite más a la derecha que la paleta puede ir.
                                   // Ajusta este valor en el Inspector.
+    [SerializeField]
+    public float escalaInicio = 1f;
+    public float escalaMaxima = 1.2f;
+    public float duracionAnimacion = 0.5f;
+    public LeanTweenType tipoEasing = LeanTweenType.easeInOutSine;
+
+    private Vector3 escalaOriginal;
+
+    void Start()
+    {
+        void Start()
+        {
+            escalaOriginal = transform.localScale;
+
+            // Empieza en 0
+            transform.localScale = Vector3.zero;
+
+            // Anima a su tamaño normal
+            LeanTween.scale(gameObject, escalaOriginal, 0.5f)
+                .setEase(LeanTweenType.easeOutBounce)
+                .setDelay(Random.Range(0f, 0.5f));
+        }
+    }
+
 
     void Update()
     {

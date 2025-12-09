@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class Bloques : MonoBehaviour
@@ -6,9 +7,36 @@ public class Bloques : MonoBehaviour
     public int puntosBloque = 10;
 
     [SerializeField]
+    public float escalaInicio = 1f;
+    public float escalaMaxima = 1.2f;
+    public float duracionAnimacion = 0.5f;
+    public LeanTweenType tipoEasing = LeanTweenType.easeInOutSine;
+
+    [SerializeField]
     public GameObject efectoDestruccion; // Partículas o efecto visual
     public AudioClip sonidoDestruccion; // Sonido al destruirse
 
+    [SerializeField]
+    public bool animarAlDestruir = true;
+    public float duracionDestruccion = 0.3f;
+
+    private Vector3 escalaOriginal;
+    
+    
+    void Start()
+    {
+        escalaOriginal = transform.localScale;
+
+        // Delay aleatorio para cada bloque
+        float delayAleatorio = Random.Range(0f, 1f);
+
+        LeanTween.scale(gameObject, escalaOriginal * escalaMaxima, duracionAnimacion)
+            .setEase(LeanTweenType.easeInOutSine)
+            .setLoopPingPong()
+            .setDelay(delayAleatorio);
+
+             
+    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         // Verifica si la bola golpeó el bloque
@@ -18,8 +46,10 @@ public class Bloques : MonoBehaviour
             if (GameManager.Instance != null)
             {
                 GameManager.Instance.SumarPuntos(puntosBloque);
-            }
 
+                
+            }
+            Destroy(gameObject);
             // Efecto visual (opcional)
             if (efectoDestruccion != null)
             {

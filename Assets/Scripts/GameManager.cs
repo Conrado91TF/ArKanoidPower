@@ -1,4 +1,4 @@
-using TMPro;
+Ôªøusing TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.SocialPlatforms.Impl;
@@ -14,9 +14,13 @@ public class GameManager : MonoBehaviour
     private int puntos = 0;
 
     [SerializeField]
-    public Image[] corazones; // Array de 3 im·genes de corazones
+    public Image[] corazones; // Array de 3 im√°genes de corazones
     private int vidas = 3;
 
+    [SerializeField]
+    private int bloquesRestantes = 0;
+
+    
 
 
     private void Awake()
@@ -42,11 +46,11 @@ public class GameManager : MonoBehaviour
             puntosTexto = GameObject.Find("PuntosTexto").GetComponent<TextMeshProUGUI>(); // *Cambia "PuntosTexto" por el nombre real de tu GameObject*
         }
 
-        // 2. Reasignar Corazones (esto es m·s complejo, pero si el array est· vacÌo o nulo, busca)
+        // 2. Reasignar Corazones (esto es m√°s complejo, pero si el array est√° vac√≠o o nulo, busca)
         if (corazones == null || corazones.Length == 0)
         {
-            // Un ejemplo simplificado serÌa:
-            // Busca el objeto principal que contiene los corazones y obtÈn sus hijos con el componente Image.
+            // Un ejemplo simplificado ser√≠a:
+            // Busca el objeto principal que contiene los corazones y obt√©n sus hijos con el componente Image.
             GameObject contenedorCorazones = GameObject.Find("ContenedorCorazones"); // *Cambia por el nombre real*
             if (contenedorCorazones != null)
             {
@@ -89,8 +93,10 @@ public class GameManager : MonoBehaviour
 
         }
     }
-
-    // MÈtodo para perder una vida
+    public int ObtenerBloquesRestantes()
+    {
+        return bloquesRestantes;
+    }
     public void PerderVida()
     {
 
@@ -103,25 +109,25 @@ public class GameManager : MonoBehaviour
             if (vidas <= 0)
             {
                 FindAnyObjectByType<GamerOver>().MostrarGameOver();
-                Debug.Log("Game Over! PuntuaciÛn final: " + puntos);
-                // AquÌ puedes llamar a tu mÈtodo de Game Over existente
+                Debug.Log("Game Over! Puntuaci√≥n final: " + puntos);
+                // Aqu√≠ puedes llamar a tu m√©todo de Game Over existente
             }
 
         }
     }
 
-    // Actualizar visualizaciÛn de corazones
+    // Actualizar visualizaci√≥n de corazones
     void ActualizarCorazones()
     {
         for (int i = 0; i < corazones.Length; i++)
         {
             if (i < vidas)
             {
-                corazones[i].enabled = true; // Mostrar corazÛn
+                corazones[i].enabled = true; // Mostrar coraz√≥n
             }
             else
             {
-                corazones[i].enabled = false; // Ocultar corazÛn
+                corazones[i].enabled = false; // Ocultar coraz√≥n
             }
         }
     }
@@ -138,23 +144,22 @@ public class GameManager : MonoBehaviour
     {
         return vidas;
     }
-
     public void ReiniciarJuego()
     {
-        // MÈtodo p˙blico para botones de reinicio
+        // M√©todo p√∫blico para botones de reinicio
         Time.timeScale = 1f; // Asegurar que el tiempo vuelva a la normalidad
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
     }
 
-    public void ReloadScene() // MÈtodo para recargar la escena actual
+    public void ReloadScene() // M√©todo para recargar la escena actual
     {
         Time.timeScale = 1f;
-        // Asegura que el tiempo de juego estÈ normal al recargar la escena
+        // Asegura que el tiempo de juego est√© normal al recargar la escena
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
- 
+   
 }
 
 

@@ -5,10 +5,11 @@ public class Victoria : MonoBehaviour
 {
    public TMP_Text textPuntos;
    public GameObject panelVictoria;
+    
     public void MostrarVictoria()
     {
         panelVictoria.SetActive(true);
-
+        textPuntos.text = (("Puntos Finales: ") + FindAnyObjectByType<GameManager>().puntosTexto).ToString();
 
         Time.timeScale = 0f; // Pausa el juego
     }
@@ -22,4 +23,5 @@ public class Victoria : MonoBehaviour
         Time.timeScale = 1f; // Restaura la velocidad del juego
         SceneManager.LoadScene("MainMenu");
     }
+    
 }

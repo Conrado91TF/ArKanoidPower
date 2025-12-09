@@ -27,5 +27,7 @@ public class GamerOver : MonoBehaviour
         Time.timeScale = 1f; // Restaura la velocidad del juego
         SceneManager.LoadScene("MainMenu");
     }
+
 }
+
 

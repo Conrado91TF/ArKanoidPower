@@ -18,18 +18,18 @@ public class Ball : MonoBehaviour
     private float velocityMultiplaier; // Multiplicador de velocidad al destruir un ladrillo.
     public float playerOffsetY = 0.4f;
 
-    
 
-    
-   
+    private Victoria scriptVictoria;
+
+
     void Start()
     {
         ballRb = GetComponent<Rigidbody2D>();
         // Inicialmente, la bola no se está moviendo
         // GetComponent<Rigidbody2D>() obtiene el componente Rigidbody2D adjunto al mismo GameObject que este script.
-        
-        
 
+
+        
 
     }
 
