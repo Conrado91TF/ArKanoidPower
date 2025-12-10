@@ -149,5 +149,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puntosBloque: 10
-  efectoDestruccion: {fileID: 0}
-  sonidoDestruccion: {fileID: 0}
+  escalaInicio: 1
+  escalaMaxima: 1.2
+  duracionAnimacion: 0.5
+  tipoEasing: 16
+  efectoDestruccion: {fileID: 100008, guid: 7075bd5fe1480184695a32611c15da57, type: 3}
+  sonidoDestruccion: {fileID: 8300000, guid: c401d00c96b512e488d2e3bf5d111509, type: 3}
+  animarAlDestruir: 1
+  duracionDestruccion: 0.3

@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
 
     [SerializeField]
-    public TextMeshProUGUI puntosTexto;
+    public TextMeshProUGUI puntosTexto; //Sistema de puntos
     private int puntos = 0;
 
     [SerializeField]
@@ -20,38 +20,28 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private int bloquesRestantes = 0;
 
-    
-
-
     private void Awake()
     {
         if (Instance != null && Instance != this)
         {
-            // Si ya existe una instancia del GameManager, destruye esta nueva instancia
             Destroy(gameObject);
             return;
-
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
-
-
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         if (puntosTexto == null)
         {
-            puntosTexto = GameObject.Find("PuntosTexto").GetComponent<TextMeshProUGUI>(); // *Cambia "PuntosTexto" por el nombre real de tu GameObject*
+            var go = GameObject.Find("PuntosTexto");
+            if (go != null) puntosTexto = go.GetComponent<TextMeshProUGUI>();
         }
 
-        // 2. Reasignar Corazones (esto es más complejo, pero si el array está vacío o nulo, busca)
         if (corazones == null || corazones.Length == 0)
         {
-            // Un ejemplo simplificado sería:
-            // Busca el objeto principal que contiene los corazones y obtén sus hijos con el componente Image.
-            GameObject contenedorCorazones = GameObject.Find("ContenedorCorazones"); // *Cambia por el nombre real*
+            GameObject contenedorCorazones = GameObject.Find("ContenedorCorazones");
             if (contenedorCorazones != null)
             {
                 corazones = contenedorCorazones.GetComponentsInChildren<Image>();
@@ -59,7 +49,6 @@ public class GameManager : MonoBehaviour
         }
 
         blocksLeft = GameObject.FindGameObjectsWithTag("Blocks").Length;
-
         Debug.Log("Bloques encontrados al iniciar: " + blocksLeft);
 
         ActualizarPuntos();
@@ -68,38 +57,48 @@ public class GameManager : MonoBehaviour
 
     public void BlockDestroyed()
     {
-
-        // Disminuye el conteo de bloques restantes y recarga la escena si no quedan bloques
-        // BLOCKSLEFT se inicializa en Start contando todos los bloques con la etiqueta "Blocks"
-        // ReloadScene se llama para reiniciar el juego cuando todos los bloques han sido destruidos
         blocksLeft--;
+        Debug.Log("Bloques restantes: " + blocksLeft);
+
         if (blocksLeft <= 0)
         {
-            ReloadScene();
+            // Intentar mostrar panel de victoria si existe en la escena
+            var victoria = FindObjectOfType<Victoria>();
+            if (victoria != null)
+            {
+                victoria.MostrarVictoria();
+            }
+            else
+            {
+                // Fallback: recargar o marcar victoria de otra forma
+                Debug.Log("[GameManager] No se encontró componente Victoria en la escena. Recargando por fallback.");
+                ReloadScene();
+            }
         }
     }
+
     public void SumarPuntos(int cantidad)
     {
+        //Suma
         puntos += cantidad;
         ActualizarPuntos();
     }
 
-    // Actualizar el texto de puntos
     void ActualizarPuntos()
     {
         if (puntosTexto != null)
         {
             puntosTexto.text = "Puntos: " + puntos.ToString();
-
         }
     }
+
     public int ObtenerBloquesRestantes()
     {
         return bloquesRestantes;
     }
+
     public void PerderVida()
     {
-
         if (vidas > 0)
         {
             vidas--;
@@ -108,59 +107,47 @@ public class GameManager : MonoBehaviour
 
             if (vidas <= 0)
             {
-                FindAnyObjectByType<GamerOver>().MostrarGameOver();
+                var gamerOver = FindObjectOfType<GamerOver>();
+                if (gamerOver != null)
+                    gamerOver.MostrarGameOver();
+                else
+                {
+                    Debug.Log("[GameManager] No se encontró GamerOver; recargando por fallback.");
+                    ReloadScene();
+                }
                 Debug.Log("Game Over! Puntuación final: " + puntos);
-                // Aquí puedes llamar a tu método de Game Over existente
             }
-
         }
     }
 
-    // Actualizar visualización de corazones
     void ActualizarCorazones()
     {
+        if (corazones == null) return;
         for (int i = 0; i < corazones.Length; i++)
         {
-            if (i < vidas)
-            {
-                corazones[i].enabled = true; // Mostrar corazón
-            }
-            else
-            {
-                corazones[i].enabled = false; // Ocultar corazón
-            }
+            corazones[i].enabled = i < vidas;
         }
     }
 
-    // Obtener puntos actuales
     public int ObtenerPuntos()
     {
         return puntos;
-
     }
 
-    // Obtener vidas actuales
     public int ObtenerVidas()
     {
         return vidas;
     }
+
     public void ReiniciarJuego()
     {
-        // Método público para botones de reinicio
-        Time.timeScale = 1f; // Asegurar que el tiempo vuelva a la normalidad
+        Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-
     }
 
-    public void ReloadScene() // Método para recargar la escena actual
+    public void ReloadScene()
     {
         Time.timeScale = 1f;
-        // Asegura que el tiempo de juego esté normal al recargar la escena
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
-
-   
 }
-
-
-
